@@ -31,7 +31,7 @@ class ProductViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        related_products = Product.objects.filter(category=instance.category).exclude(id=instance.id)
+        related_products = Product.objects.filter(category=instance.category).exclude(id=instance.id)[:5]
         related_serializer = ProductSerializer(related_products, many=True)
 
         return Response({
