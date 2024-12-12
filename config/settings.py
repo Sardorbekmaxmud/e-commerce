@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # third
     'rest_framework',
     'drf_yasg',
+    'django_filters',
 
     # default
     'django.contrib.admin',
@@ -61,6 +62,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
+}
 
 TEMPLATES = [
     {
