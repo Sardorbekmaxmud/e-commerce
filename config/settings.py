@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
@@ -31,7 +32,6 @@ DEBUG = os.getenv('DEBUG')
 ALLOWED_HOSTS = []
 
 # Application definition
-
 INSTALLED_APPS = [
     # local
     'products',
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'django_filters',
+    'rest_framework_simplejwt',
+    'djoser',
 
     # default
     'django.contrib.admin',
@@ -64,10 +66,19 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'config.urls'
 
 REST_FRAMEWORK = {
+    # Filters
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 
+    # Pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 20,
+
+    # Authentications
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 TEMPLATES = [
@@ -134,5 +145,30 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+
+    "ALGORITHM": "HS256",
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=120),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+}
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
