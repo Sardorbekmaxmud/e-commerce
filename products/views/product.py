@@ -1,12 +1,14 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.decorators import action
+from rest_framework import filters, pagination
 from rest_framework.response import Response
-from rest_framework import pagination, filters, permissions
+from rest_framework.decorators import action
 from django_filters import rest_framework as dj_filters
 from django.db import models
-from products.models import Category, Product, Review
-from products.serializers import CategorySerializer, ProductSerializer, ReviewSerializer
-from products.filters import ProductFilter, ReviewFilter
+
+from products.models import Product
+from products.serializers import ProductSerializer
+from products.filters import ProductFilter
+from products.permissions import IsStaffOrReadOnly
 
 
 # Create your views here.
@@ -14,28 +16,8 @@ class CustomPagination(pagination.PageNumberPagination):
     page_size = 3
 
 
-class CategoryViewSet(ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    pagination_class = CustomPagination
-
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['name']
-
-
-class ReviewViewSet(ModelViewSet):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    pagination_class = CustomPagination
-
-    filter_backends = [dj_filters.DjangoFilterBackend, filters.SearchFilter]
-    filterset_class = ReviewFilter
-    search_fields = ['content',]
-
-
 class ProductViewSet(ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = CustomPagination
@@ -58,9 +40,9 @@ class ProductViewSet(ModelViewSet):
         related_serializer = ProductSerializer(related_products, many=True)
 
         return Response({
-                'product': serializer.data,
-                'related_products': related_serializer.data,
-            })
+            'product': serializer.data,
+            'related_products': related_serializer.data,
+        })
 
     @action(detail=False, methods=['get'])
     def top_rating(self, request):
