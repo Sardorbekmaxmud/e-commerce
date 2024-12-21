@@ -30,7 +30,7 @@ class Product(models.Model):
 
     def increase_stock(self, amount) -> None:
         if amount <= 0:
-            raise Exception("Incorrect value")
+            raise False
         self.stock += amount
         self.save()
 

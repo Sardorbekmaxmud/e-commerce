@@ -50,7 +50,7 @@ class OrderSerializer(serializers.ModelSerializer):
     def send_confirmation_email(order):
         title = f"Hurmatli {order.customer.username}!"
         message = f"Sizning buyurtma raqami:🆔{order.id} bo'lgan 📦 buyurtmangiz 📥 qabul qilindi!\n" \
-                  f"📦 Buyurtmangizni belgilangan 🕒 vaqt oralig'ida 📤 yetkazib beramiz!😊"
+                  f"📦 Buyurtmangizni belgilangan 🕒 vaqt oralig'ida 📤 yetkazib beramiz! 😊"
         to_email = User.objects.get(id=order.customer.id, is_active=True)
 
         send_mail(subject=title,
