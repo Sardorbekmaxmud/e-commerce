@@ -1,0 +1,36 @@
+version: "3"
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:3000
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+
+  rabbitmq:
+    image: rabbitmq:management
+    environment:
+      - RABBITMQ_DEFAULT_USER=gest
+      - RABBITMQ_DEFAULT_PASS=gest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    command: celery -A config worker --loglevel-info
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+      - redis
+    env_file:
+      - ./.env
