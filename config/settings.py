@@ -177,3 +177,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 ADMIN_ID = os.getenv('ADMIN_ID')
+
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # RabbitMQ as a broker
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')  # Redis as a result backend

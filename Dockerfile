@@ -1,7 +1,7 @@
 # Use the official Python image from the Docker Hub
-FROM python:3.11.11
+FROM python:3.11.5
 
-# Set envirenment variables
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
