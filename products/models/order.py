@@ -32,6 +32,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING,)
     phone_number = models.CharField(max_length=13, validators=[phone_regex])
+    is_paid = models.BooleanField(default=False)
 
     def set_status(self, new_status) -> None:
         """

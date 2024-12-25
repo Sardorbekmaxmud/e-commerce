@@ -57,6 +57,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Applications
     path('api/v1/', include('products.urls')),
+    path('api/v1/pay/', include('billing.urls')),
 
     # authentications
     path('api/v1/auth/', include('djoser.urls')),

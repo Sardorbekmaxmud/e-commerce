@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # local
     'products',
+    'billing',
 
     # third
     'rest_framework',
@@ -180,3 +181,6 @@ ADMIN_ID = os.getenv('ADMIN_ID')
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # RabbitMQ as a broker
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')  # Redis as a result backend
+
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
