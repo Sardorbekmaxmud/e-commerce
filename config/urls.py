@@ -58,6 +58,7 @@ urlpatterns = [
     # Applications
     path('api/v1/', include('products.urls')),
     path('api/v1/pay/', include('billing.urls')),
+    path('api/v1/sms-auth/', include('account.urls')),
 
     # authentications
     path('api/v1/auth/', include('djoser.urls')),

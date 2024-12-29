@@ -15,6 +15,9 @@ class Review(models.Model):
     rating = models.PositiveSmallIntegerField()
     date_posted = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return f"{self.user} - {self.product.name} - {self.rating}"
 
@@ -31,6 +34,7 @@ class FlashSale(models.Model):
 
     class Meta:
         unique_together = ['product', 'start_time', 'end_time']
+        ordering = ['id']
 
 
 class ProductViewHistory(models.Model):
@@ -40,6 +44,7 @@ class ProductViewHistory(models.Model):
 
     class Meta:
         verbose_name_plural = "product view histories"
+        ordering = ['id']
 
     def __str__(self):
         return f"{self.user.username} {self.product.name}"

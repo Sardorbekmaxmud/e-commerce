@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     # local
     'products',
     'billing',
+    'account',
 
     # third
     'rest_framework',
@@ -97,6 +98,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'account.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -184,3 +187,5 @@ CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')  # Redis as a result 
 
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+SMS_KEY = os.getenv('SMS_KEY')

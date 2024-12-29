@@ -1,8 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 
 from products.models import Product
+
+User = get_user_model()
 
 # Create your models here.
 phone_regex = RegexValidator(
@@ -15,7 +17,7 @@ class Order(models.Model):
     PENDING = 'Pending'  # Ko'rib chiqilyapti
     PROCESSING = 'Processing'  # Yig'ilyapti
     SHIPPED = 'Shipped'  # Yuklandi
-    DELIVERED = 'Delivered'  # Xarirdorga yetkazildi
+    DELIVERED = 'Delivered'  # Xaridorga yetkazildi
     CANCELED = 'Canceled'  # Bekor qilindi
 
     STATUS_CHOICES = [
@@ -33,6 +35,9 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING,)
     phone_number = models.CharField(max_length=13, validators=[phone_regex])
     is_paid = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['id']
 
     def set_status(self, new_status) -> None:
         """

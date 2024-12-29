@@ -12,12 +12,9 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 class CreateChargeView(APIView):
-    def post(self, reqeust, *args, **kwargs):
-        stripe_token = reqeust.data.get('stripe_token')
-        order_id = reqeust.data.get('order_id')
-
-        print(f"{reqeust=}")
-        print(f"{reqeust.data=}")
+    def post(self, request, *args, **kwargs):
+        stripe_token = request.data.get('stripe_token')
+        order_id = request.data.get('order_id')
 
         try:
             order = Order.objects.get(id=order_id)
