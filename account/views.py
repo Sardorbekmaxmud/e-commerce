@@ -19,10 +19,8 @@ class SMSLoginViewSet(viewsets.ViewSet):
         serializer = SMSSerializer(data=request.data)
         if serializer.is_valid():
             phone_number = serializer.validated_data['phone_number']
-            print(phone_number)
 
             verification_code = str(random.randint(100000, 999999))
-            print(verification_code)
 
             url = 'https://4e29v1.api.infobip.com/sms/2/text/advanced'
             headers = {
@@ -44,7 +42,6 @@ class SMSLoginViewSet(viewsets.ViewSet):
 
             if response.status_code == 200:
                 cache.set(phone_number, verification_code, 300)
-                print(f'{cache.get(phone_number)}')
 
                 return Response({'message': 'SMS sent successfully'}, status=status.HTTP_200_OK)
 
@@ -58,11 +55,7 @@ class SMSLoginViewSet(viewsets.ViewSet):
             phone_number = serializer.validated_data['phone_number']
             verification_code = serializer.validated_data['verification_code']
 
-            print(f'{phone_number=}')
-            print(f'{verification_code=}')
-
             cached_code = cache.get(phone_number)
-            print(f'{cached_code=}')
 
             if verification_code == cached_code:
                 user, created = User.objects.get_or_create(phone_number=phone_number)

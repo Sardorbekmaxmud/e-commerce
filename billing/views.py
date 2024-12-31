@@ -30,7 +30,6 @@ class CreateChargeView(APIView):
                 currency="usd",
                 source=stripe_token,
             )
-            print(f"{charge=}")
 
             # payment jadvaliga yangi ma'lumot qo'shish
             Payment.objects.create(

@@ -34,7 +34,7 @@ class FlashSale(models.Model):
 
     class Meta:
         unique_together = ['product', 'start_time', 'end_time']
-        ordering = ['id']
+        ordering = ['-id']
 
 
 class ProductViewHistory(models.Model):
@@ -46,5 +46,5 @@ class ProductViewHistory(models.Model):
         verbose_name_plural = "product view histories"
         ordering = ['id']
 
-    def __str__(self):
-        return f"{self.user.username} {self.product.name}"
+    def __repr__(self):
+        return f"{self.user.phone_number} {self.product.name}"
