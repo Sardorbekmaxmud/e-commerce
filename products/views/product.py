@@ -61,6 +61,4 @@ class ProductViewSet(ModelViewSet):
 
         avg_rating = sum([review.rating for review in reviews]) / reviews.count()
 
-        return Response({
-            'average_rating': avg_rating
-        })
+        return Response({'average_rating': avg_rating})

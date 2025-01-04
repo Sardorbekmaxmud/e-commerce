@@ -4,14 +4,13 @@ from rest_framework import permissions
 # Create your custom permissions
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        # request metodi GET, HEAD or OPTION bo'lsa,
-        # faqat o'qishga ruxsat beradi.
+        # request metodi GET, HEAD or OPTION bo'lsa, faqat o'qishga ruxsat beradi.
         if request.method in permissions.SAFE_METHODS:
             return True
 
         # Aks holda, qolgan request metodlarida egasi bo'lsagina ruxsat beradi.
         # Egasi bo'lmasa ruxsat bermaydi.
-        return obj.owner == request.user
+        return obj.customer == request.user
 
 
 class IsStaffOrReadOnly(permissions.BasePermission):

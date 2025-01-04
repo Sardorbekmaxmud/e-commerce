@@ -1,0 +1,20 @@
+-   model: products.category
+    pk: 1
+    fields:
+        name: National food
+-   model: products.category
+    pk: 2
+    fields:
+        name: Sweets
+-   model: products.category
+    pk: 3
+    fields:
+        name: Electronics
+-   model: products.category
+    pk: 4
+    fields:
+        name: Drinks
+-   model: products.category
+    pk: 5
+    fields:
+        name: Shoes

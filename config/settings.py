@@ -185,7 +185,13 @@ ADMIN_ID = os.getenv('ADMIN_ID')
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # RabbitMQ as a broker
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')  # Redis as a result backend
 
+CELERY_TASK_ALWAYS_EAGER = True  # Test vaqtida ishlamasligini ta'minlash
+CELERY_TASK_EAGER_PROPAGATES = True  # # Test vaqtida ishlamasligini ta'minlash
+
+
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 SMS_KEY = os.getenv('SMS_KEY')
+
+OTHER_USER_EMAIL = os.getenv('OTHER_USER_EMAIL')

@@ -4,6 +4,7 @@ from django_filters import rest_framework as dj_filters
 from products.models import Category, Review, Order
 from products.serializers import CategorySerializer, ReviewSerializer, OrderSerializer
 from products.filters import ReviewFilter
+from products.permissions import IsOwnerOrReadOnly
 
 
 # Create your views here.
@@ -35,3 +36,4 @@ class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     pagination_class = CustomPagination
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]

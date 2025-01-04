@@ -60,7 +60,24 @@ class SMSLoginViewSet(viewsets.ViewSet):
             if verification_code == cached_code:
                 user, created = User.objects.get_or_create(phone_number=phone_number)
                 if created:
-                    # Set other fields like username, email, etc. if needed
+                    # Yaratilgan user uchun email va username qo'shish
+                    email = serializer.validated_data.get('email', None)
+                    username = serializer.validated_data.get('username', None)
+
+                    if email:
+                        user.email = email
+                    if username:
+                        user.username = username
+
+                    user.save()
+
+                else:
+                    # user allaqachon mavjud bo'lsa, email va username yangilanadi
+                    email = serializer.validated_data.get('email', user.email)
+                    username = serializer.validated_data.get('username', user.username)
+
+                    user.email = email
+                    user.username = username
                     user.save()
 
                 refresh = RefreshToken.for_user(user)

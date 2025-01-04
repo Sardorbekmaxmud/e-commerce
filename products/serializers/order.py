@@ -17,7 +17,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'product', 'customer', 'quantity', 'created_at', 'total_price', 'phone_number', 'is_paid']
+        fields = ['id', 'product', 'customer', 'quantity', 'created_at', 'total_price', 'phone_number', 'status', 'is_paid']
 
     @staticmethod
     def get_total_price(obj):
@@ -49,9 +49,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def send_confirmation_email(order):
-        title = f"Hurmatli {order.customer.username}!"
-        message = f"Sizning buyurtma raqami:🆔{order.id} bo'lgan 📦 buyurtmangiz 📥 qabul qilindi!\n" \
-                  f"📦 Buyurtmangizni belgilangan 🕒 vaqt oralig'ida 📤 yetkazib beramiz! 😊"
+        title = f"Hurmatli {order.customer.phone_number}!"
+        message = f"Sizning buyurtma raqami:🆔{order.id} bo'lgan 📦 buyurtmangiz qabul qilindi!\n" \
+                  f"📦 Buyurtmangizni belgilangan vaqt oralig'ida yetkazib beramiz! 😊"
         to_email = User.objects.get(id=order.customer.id, is_active=True)
 
         send_mail(subject=title,

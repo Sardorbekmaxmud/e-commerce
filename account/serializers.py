@@ -9,3 +9,5 @@ class SMSSerializer(serializers.Serializer):
 class VerifySMSSerializer(serializers.Serializer):
     phone_number = serializers.CharField()
     verification_code = serializers.CharField()
+    email = serializers.EmailField()
+    username = serializers.CharField(max_length=150)
