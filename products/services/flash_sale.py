@@ -1,15 +1,20 @@
-from rest_framework import generics, serializers, status, filters
+from django.utils import timezone
+from rest_framework import generics, serializers, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from django_filters import rest_framework as dj_filters
-from datetime import datetime, timedelta
+from datetime import timedelta
+
 from products.models import FlashSale, Product, ProductViewHistory
 from products.views import CustomPagination
 from products.filters import FlashSaleFilter
+from products.permissions import IsStaffOrReadOnly
 
 
 # Create your views here
 class FlashSaleListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated, IsStaffOrReadOnly]
     queryset = FlashSale.objects.all()
 
     class FlashSaleSerializer(serializers.ModelSerializer):
@@ -35,7 +40,7 @@ def check_flash_sale(request, product_id):
 
     upcoming_flash_sale = FlashSale.objects.filter(
         product=product,
-        start_time__lte=datetime.now() + timedelta(hours=24)
+        start_time__lte=timezone.now() + timedelta(hours=24)
     ).first()
 
     if user_viewed and upcoming_flash_sale:
@@ -48,7 +53,7 @@ def check_flash_sale(request, product_id):
                 'message': f"This product will be on a {discount}% off flash sale",
                 'start_time': start_time,
                 'end_time': end_time,
-            }
+            }, status=status.HTTP_200_OK
         )
     else:
-        return Response({"message": "No upcoming flash sales for this product."})
+        return Response({"message": "No upcoming flash sales for this product."}, status=status.HTTP_404_NOT_FOUND)

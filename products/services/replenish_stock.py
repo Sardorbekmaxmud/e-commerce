@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from products.models import Product
 
 
-@api_view(['POST'])
+@api_view(['PUT'])
 @swagger_auto_schema(operation_description='Admin replenishes stock for a product')
 @staff_member_required
 def admin_replenish_stock(request, product_id, amount):
@@ -19,4 +19,4 @@ def admin_replenish_stock(request, product_id, amount):
         return JsonResponse(data={'status': 'error', 'message': 'Product does not exist.'}, status=400)
 
     except ValueError:
-        return HttpResponseBadRequest('Invalid input.')
+        return HttpResponseBadRequest('Invalid input.', status=400)

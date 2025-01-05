@@ -96,3 +96,18 @@ class ProductViewSetTestCase(APITestCase):
         data = {'category': 2, 'name': '1.0l DaDa apelsin', 'description': '1.0l Dada apelsin sharbati', 'price': 10_000, 'stock': 50}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_permission_for_staff_user_update_admin_product_replenish_stock(self):
+        url = reverse('admin-replenish-stock', args=[self.product1.pk, 50])
+        self.client.force_authenticate(user=self.staff_user)
+        response = self.client.put(path=url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.product1.refresh_from_db()
+        self.assertEqual(self.product1.stock, 150)
+
+    def test_permission_for_regular_user_update_admin_product_replenish_stock(self):
+        url = reverse('admin-replenish-stock', args=[self.product1.pk, 50])
+        self.client.force_authenticate(user=self.user)
+        response = self.client.put(path=url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)

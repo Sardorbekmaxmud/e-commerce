@@ -15,7 +15,7 @@ SMS_KEY = settings.SMS_KEY
 
 @api_view(['get'])
 @swagger_auto_schema(operation_description='Send an SMS ad to purchase a product in the category the user last viewed')
-def send_sms_user_sale_product_view(request, pk=None):
+def send_sms_user_sale_product_view(request, user_id=None):
     flash_sales = FlashSale.objects.all()
 
     sales_products_info = []
@@ -29,7 +29,7 @@ def send_sms_user_sale_product_view(request, pk=None):
             }
         )
 
-    product_view = ProductViewHistory.objects.filter(user=pk).order_by('-timestamp').first()
+    product_view = ProductViewHistory.objects.filter(user=user_id).order_by('-timestamp').first()
     phone_number_and_text = {}
 
     phone_number = product_view.user.phone_number
@@ -48,7 +48,6 @@ def send_sms_user_sale_product_view(request, pk=None):
             phone_number_and_text.update({'phone_number': phone_number, 'text': text})
             break
 
-    # return Response({'message': phone_number_and_text})
     return send_sms(phone_number_and_text)
 
 

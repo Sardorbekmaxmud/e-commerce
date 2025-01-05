@@ -1,17 +1,20 @@
 from rest_framework.views import APIView
-from rest_framework import status, generics
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
+
 from products.models import ProductViewHistory
 from products.serializers import ProductViewHistorySerializer
 from products.views import CustomPagination
+from products.permissions import IsStaffOrReadOnly
 
 
 class ProductViewHistoryListCreate(APIView):
     serializer_class = ProductViewHistorySerializer
     pagination_class = CustomPagination
+    permission_classes = [permissions.IsAuthenticated, IsStaffOrReadOnly]
 
-    @swagger_auto_schema('get')
+    @swagger_auto_schema(method='get')
     def get(self, request):
         queryset = ProductViewHistory.objects.all()
 

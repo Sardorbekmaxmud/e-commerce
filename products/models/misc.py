@@ -23,7 +23,7 @@ class Review(models.Model):
 
 
 class FlashSale(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     discount_percentage = models.PositiveIntegerField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
