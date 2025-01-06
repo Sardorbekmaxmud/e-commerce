@@ -20,7 +20,7 @@ class CategoryViewSetTestCase(APITestCase):
         url = reverse('category-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 5)
+        self.assertEqual(response.data['count'], 6)
 
     def test_category_detail(self):
         url = reverse('category-detail', args=[4])
