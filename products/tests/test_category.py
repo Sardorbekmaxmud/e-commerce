@@ -59,4 +59,4 @@ class CategoryViewSetTestCase(APITestCase):
         data = {'name': 'Lavash'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Category.objects.count(), 6)
+        self.assertEqual(Category.objects.count(), 7)
