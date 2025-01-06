@@ -1,2 +1,2 @@
-# e-commerce
-E-commerce website apis made in Django-rest-framework
+# ecommerce
+Ecommerce website apis made in Django-rest-framework

@@ -189,8 +189,8 @@ CELERY_TASK_ALWAYS_EAGER = True  # Test vaqtida ishlamasligini ta'minlash
 CELERY_TASK_EAGER_PROPAGATES = True  # # Test vaqtida ishlamasligini ta'minlash
 
 
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')  # To'lov tizimi uchun ichki
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')  # To'lov tizimi uchun ommaviy
 
 SMS_KEY = os.getenv('SMS_KEY')
 
