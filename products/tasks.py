@@ -4,7 +4,7 @@ import requests
 import time
 
 
-@shared_task()  # Celery async tarzda avtomatik bajaradi.
+@shared_task  # Celery async tarzda avtomatik bajaradi.
 def send_telegram_notification(order_id, product_name, quantity, customer_phone_number, phone_number, created_at, status, is_paid):
     time.sleep(5)
 
