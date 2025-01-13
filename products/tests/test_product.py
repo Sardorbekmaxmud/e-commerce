@@ -9,8 +9,8 @@ User = get_user_model()
 
 class ProductViewSetTestCase(APITestCase):
     def setUp(self):
-        self.user = User.objects.create(phone_number='+998998765432', password='testroot')
-        self.staff_user = User.objects.create(phone_number='+998912345678', password='teststaffroot', is_staff=True)
+        self.user = User.objects.create(phone_number='+998998765432', password='testroot', is_active=True)
+        self.staff_user = User.objects.create(phone_number='+998912345678', password='teststaffroot', is_active=True, is_staff=True)
 
         self.category1 = Category.objects.create(name='Pozabzallar')
         self.category2 = Category.objects.create(name='Ichimliklar')

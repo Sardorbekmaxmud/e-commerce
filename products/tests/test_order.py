@@ -16,8 +16,8 @@ class OrderViewSetTestCase(APITestCase):
         # Signalni vaqtincha o‘chirib qo‘yamiz
         post_save.disconnect(receiver=notify_admin, sender=Order)
 
-        self.user1 = User.objects.create(phone_number='+998911234567', password='testtest', email=settings.EMAIL_HOST_USER, username='Testuser1')
-        self.user2 = User.objects.create(phone_number='+998933133336', password='passpass', email=settings.OTHER_USER_EMAIL, username='Testuser2')
+        self.user1 = User.objects.create(phone_number='+998911234567', password='testtest', email=settings.EMAIL_HOST_USER, username='Testuser1', is_active=True)
+        self.user2 = User.objects.create(phone_number='+998933133336', password='passpass', email=settings.OTHER_USER_EMAIL, username='Testuser2', is_active=True)
 
         self.category1 = Category.objects.create(name='Books')
 
