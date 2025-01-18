@@ -36,7 +36,7 @@ class ReviewViewSetTestCase(APITestCase):
 
     def test_review_create(self):
         url = reverse('review-list')
-        data = {'user': 2, 'product': 1, 'content': 'Noutbuk yaxshi holatda, faqat yaxshilab windows qilib bermapdilar', 'rating': 4}
+        data = {'user': self.user2.id, 'product': self.product1.id, 'content': 'Noutbuk yaxshi holatda, faqat yaxshilab windows qilib bermapdilar', 'rating': 4}
         response = self.client.post(path=url, data=data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

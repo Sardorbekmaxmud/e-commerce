@@ -51,7 +51,7 @@ class OrderViewSetTestCase(APITestCase):
     def test_order_create(self):
         url = reverse('order-list')
         self.client.force_authenticate(user=self.user1)
-        data = {'product': 2, 'customer': 1, 'quantity': 1, 'phone_number': '+998916213545'}
+        data = {'product': self.product2.id, 'customer': self.user1.id, 'quantity': 1, 'phone_number': '+998916213545'}
         response = self.client.post(path=url, data=data, format='json')
 
         self.assertEqual(first=response.status_code, second=status.HTTP_201_CREATED)

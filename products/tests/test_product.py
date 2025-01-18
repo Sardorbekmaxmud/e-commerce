@@ -60,7 +60,7 @@ class ProductViewSetTestCase(APITestCase):
     def test_product_create(self):
         url = reverse('product-list')
         self.client.force_authenticate(self.staff_user)
-        data = {'category': 2, 'name': "1.0l Milliy cola", 'description': "O'zimizning milliy cola. 1.0l", 'price': 8_000, 'stock': 1_000}
+        data = {'category': self.category2.id, 'name': "1.0l Milliy cola", 'description': "O'zimizning milliy cola. 1.0l", 'price': 8_000, 'stock': 1_000}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.product2.refresh_from_db()
@@ -93,7 +93,7 @@ class ProductViewSetTestCase(APITestCase):
     def test_permission_granted_for_staff_user(self):
         url = reverse('product-list')
         self.client.force_authenticate(user=self.staff_user)
-        data = {'category': 2, 'name': '1.0l DaDa apelsin', 'description': '1.0l Dada apelsin sharbati', 'price': 10_000, 'stock': 50}
+        data = {'category': self.category2.id, 'name': '1.0l DaDa apelsin', 'description': '1.0l Dada apelsin sharbati', 'price': 10_000, 'stock': 50}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
